@@ -347,87 +347,133 @@ $products = $conn->query($sql);
             box-shadow: 0 4px 8px rgba(240, 124, 171, 0.25);
         }
 
-        .product-table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-        }
+        table.product-table {
+                width: 100%;
+                border-collapse: separate;
+                border-spacing: 0;
+                margin-bottom: 20px;
+            }
 
-        .product-table th {
-            background: #f9f5f9;
-            text-align: left;
-            padding: 15px 20px;
-            font-weight: 600;
-            color: var(--secondary);
-            text-transform: uppercase;
-            font-size: 12px;
-            letter-spacing: 0.5px;
-            border-bottom: 1px solid var(--border-color);
-        }
+            .product-table th {
+                background: #f9f5f9;
+                text-align: left;
+                padding: 15px 20px;
+                font-weight: 600;
+                color: var(--secondary);
+                text-transform: uppercase;
+                font-size: 12px;
+                letter-spacing: 0.5px;
+                border-bottom: 1px solid var(--border-color);
+            }
 
-        .product-table tr td {
-            padding: 15px 20px;
-            border-bottom: 1px solid #f5f5f5;
-            vertical-align: middle;
-        }
+            .product-table tr td {
+                padding: 15px 20px;
+                border-bottom: 1px solid #f5f5f5;
+                vertical-align: middle;
+            }
 
-        .product-table tr:last-child td {
-            border-bottom: none;
-        }
+            /* Improved column width and alignment */
+            .product-table th:nth-child(1),
+            .product-table td:nth-child(1) {
+                width: 5%;
+                text-align: center;
+            }
 
-        .product-table tbody tr {
-            transition: var(--transition);
-        }
+            .product-table th:nth-child(2),
+            .product-table td:nth-child(2) {
+                width: 10%;
+                text-align: center;
+            }
 
-        .product-table tbody tr:hover {
-            background-color: #fafafa;
-        }
+            .product-table th:nth-child(3),
+            .product-table td:nth-child(3) {
+                width: 35%;
+                text-align: left;
+            }
 
-        .product-image {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 8px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-            transition: var(--transition);
-        }
+            .product-table th:nth-child(4),
+            .product-table td:nth-child(4) {
+                width: 15%;
+                text-align: right;
+                padding-right: 30px;
+            }
 
-        .product-image:hover {
-            transform: scale(1.1);
-        }
+            .product-table th:nth-child(5),
+            .product-table td:nth-child(5) {
+                width: 15%;
+                text-align: center;
+            }
 
-        .no-image {
-            width: 60px;
-            height: 60px;
-            background: #f9f5f9;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            font-size: 12px;
-        }
+            .product-table th:nth-child(6),
+            .product-table td:nth-child(6) {
+                width: 20%;
+                text-align: center;
+            }
 
-        .product-name {
-            font-weight: 600;
-            color: var(--text-dark);
-        }
+            /* Center align table headers */
+            .product-table th {
+                text-align: center;
+            }
 
-        .product-price {
-            font-weight: 700;
-            color: var(--primary);
-        }
+            .product-table tr:last-child td {
+                border-bottom: none;
+            }
 
-        .category-badge {
-            display: inline-block;
-            padding: 5px 12px;
-            background: #f9f5f9;
-            color: var(--secondary);
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            line-height: 1;
-        }
+            .product-table tbody tr {
+                transition: var(--transition);
+            }
+
+            .product-table tbody tr:hover {
+                background-color: #fafafa;
+            }
+
+            /* Product image styling */
+            .product-image {
+                width: 60px;
+                height: 60px;
+                object-fit: cover;
+                border-radius: 8px;
+                box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+                transition: var(--transition);
+                display: block;
+                margin: 0 auto;
+            }
+
+            .product-image:hover {
+                transform: scale(1.1);
+            }
+
+            .no-image {
+                width: 60px;
+                height: 60px;
+                background: #f9f5f9;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #999;
+                font-size: 12px;
+                margin: 0 auto;
+            }
+
+            /* Price styling */
+            .product-price {
+                font-weight: 700;
+                color: var(--primary);
+                text-align: right;
+            }
+
+            /* Category styling */
+            .category-badge {
+                display: inline-block;
+                padding: 5px 12px;
+                background: #f9f5f9;
+                color: var(--secondary);
+                border-radius: 20px;
+                font-size: 12px;
+                font-weight: 600;
+                line-height: 1;
+            }
 
         .date-display {
             color: #888;
@@ -436,208 +482,210 @@ $products = $conn->query($sql);
 
         /* Action buttons */
         .action-buttons {
-            display: flex;
-            gap: 8px;
-        }
-
-        .action-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 13px;
-            transition: var(--transition);
-            text-decoration: none;
-        }
-
-        .edit-button {
-            background: #f0f7ff;
-            color: var(--accent);
-        }
-
-        .edit-button:hover {
-            background: var(--accent);
-            color: white;
-        }
-
-        .delete-button {
-            background: #fff1f2;
-            color: var(--danger);
-        }
-
-        .delete-button:hover {
-            background: var(--danger);
-            color: white;
-        }
-
-        .action-button i {
-            margin-right: 4px;
-            font-size: 12px;
-        }
-
-        /* Empty state styling */
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        .empty-state-icon {
-            font-size: 48px;
-            color: #ddd;
-            margin-bottom: 15px;
-        }
-
-        .empty-state-text {
-            color: #888;
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-
-        /* Pagination */
-        .pagination {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 25px;
-        }
-
-        .pagination-info {
-            color: var(--text-light);
-            font-size: 14px;
-        }
-
-        .pagination-controls {
-            display: flex;
-            gap: 5px;
-        }
-
-        .page-btn {
-            width: 35px;
-            height: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 6px;
-            background: white;
-            border: 1px solid #eee;
-            color: var(--text-dark);
-            font-weight: 500;
-            transition: var(--transition);
-            text-decoration: none;
-        }
-
-        .page-btn:hover, .page-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .page-btn.disabled {
-            opacity: 0.5;
-            pointer-events: none;
-        }
-
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        @media (max-width: 991px) {
-            .admin-nav {
-                width: 80px;
-                padding: 20px 0;
-            }
-            
-            .admin-logo {
-                font-size: 0;
+                display: flex;
                 justify-content: center;
-                margin-bottom: 30px;
+                gap: 8px;
             }
-            
-            .admin-logo i {
-                margin-right: 0;
-                font-size: 28px;
-            }
-            
-            .nav-item {
+
+            .action-button {
+                display: inline-flex;
+                align-items: center;
                 justify-content: center;
-                padding: 15px;
+                padding: 6px 12px;
+                border-radius: 6px;
+                font-weight: 600;
+                font-size: 13px;
+                transition: var(--transition);
+                text-decoration: none;
+                min-width: 80px;
             }
-            
-            .nav-item i {
-                margin-right: 0;
-                font-size: 20px;
-            }
-            
-            .nav-item span {
-                display: none;
-            }
-            
-            .admin-main {
-                margin-left: 80px;
-            }
-            
-            .logout-btn span {
-                display: none;
-            }
-            
-            .logout-btn i {
-                margin-right: 0;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .page-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-            
-            .page-tools {
-                width: 100%;
-            }
-            
-            .search-input {
-                width: 100%;
-            }
-            
-            .search-input:focus {
-                width: 100%;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .product-table th:nth-child(5),
-            .product-table td:nth-child(5) {
-                display: none;
-            }
-            
-            .section-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-        }
 
-        /* Added animation for row hover */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
-        }
+            .edit-button {
+                background: #f0f7ff;
+                color: var(--accent);
+            }
 
-        .product-table tr:hover {
-            animation: pulse 0.3s ease-in-out;
-            box-shadow: 0 5px 15px rgba(240, 124, 171, 0.1);
-            z-index: 1;
-            position: relative;
-        }
+            .edit-button:hover {
+                background: var(--accent);
+                color: white;
+            }
+
+            .delete-button {
+                background: #fff1f2;
+                color: var(--danger);
+            }
+
+            .delete-button:hover {
+                background: var(--danger);
+                color: white;
+            }
+
+            .action-button i {
+                margin-right: 4px;
+                font-size: 12px;
+            }
+
+            /* Empty state styling */
+            .empty-state {
+                text-align: center;
+                padding: 40px 20px;
+            }
+
+            .empty-state-icon {
+                font-size: 48px;
+                color: #ddd;
+                margin-bottom: 15px;
+            }
+
+            .empty-state-text {
+                color: #888;
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
+
+            /* Pagination */
+            .pagination {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 25px;
+            }
+
+            .pagination-info {
+                color: var(--text-light);
+                font-size: 14px;
+            }
+
+            .pagination-controls {
+                display: flex;
+                gap: 5px;
+            }
+
+            .page-btn {
+                width: 35px;
+                height: 35px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 6px;
+                background: white;
+                border: 1px solid #eee;
+                color: var(--text-dark);
+                font-weight: 500;
+                transition: var(--transition);
+                text-decoration: none;
+            }
+
+            .page-btn:hover, .page-btn.active {
+                background: var(--primary);
+                color: white;
+                border-color: var(--primary);
+            }
+
+            .page-btn.disabled {
+                opacity: 0.5;
+                pointer-events: none;
+            }
+
+            /* Responsive */
+            @media (max-width: 1200px) {
+                .stats-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+            
+            @media (max-width: 991px) {
+                .admin-nav {
+                    width: 80px;
+                    padding: 20px 0;
+                }
+                
+                .admin-logo {
+                    font-size: 0;
+                    justify-content: center;
+                    margin-bottom: 30px;
+                }
+                
+                .admin-logo i {
+                    margin-right: 0;
+                    font-size: 28px;
+                }
+                
+                .nav-item {
+                    justify-content: center;
+                    padding: 15px;
+                }
+                
+                .nav-item i {
+                    margin-right: 0;
+                    font-size: 20px;
+                }
+                
+                .nav-item span {
+                    display: none;
+                }
+                
+                .admin-main {
+                    margin-left: 80px;
+                }
+                
+                .logout-btn span {
+                    display: none;
+                }
+                
+                .logout-btn i {
+                    margin-right: 0;
+                }
+            }
+            
+            @media (max-width: 768px) {
+                .page-header {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 15px;
+                }
+                
+                .page-tools {
+                    width: 100%;
+                }
+                
+                .search-input {
+                    width: 100%;
+                }
+                
+                .search-input:focus {
+                    width: 100%;
+                }
+                
+                .stats-grid {
+                    grid-template-columns: 1fr;
+                }
+                
+                .product-table th:nth-child(5),
+                .product-table td:nth-child(5) {
+                    display: none;
+                }
+                
+                .section-header {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 10px;
+                }
+            }
+
+            /* Added animation for row hover */
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.02); }
+                100% { transform: scale(1); }
+            }
+
+            .product-table tr:hover {
+                animation: pulse 0.3s ease-in-out;
+                box-shadow: 0 5px 15px rgba(240, 124, 171, 0.1);
+                z-index: 1;
+                position: relative;
+            }
     </style>
 </head>
 <body>
@@ -750,12 +798,12 @@ $products = $conn->query($sql);
             <table class="product-table">
                 <thead>
                     <tr>
-                        <th width="5%">#</th>
-                        <th width="12%">Image</th>
-                        <th width="30%">Product Name</th>
-                        <th width="15%">Price</th>
-                        <th width="15%">Category</th>
-                        <th width="23%">Actions</th>
+                        <th>#</th>
+                        <th>IMAGE</th>
+                        <th>PRODUCT NAME</th>
+                        <th>PRICE</th>
+                        <th>CATEGORY</th>
+                        <th>ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody id="productTableBody">
