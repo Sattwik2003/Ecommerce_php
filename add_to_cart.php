@@ -1,5 +1,10 @@
 <?php
 session_start();
+if (!isset($_SESSION['user'])) {
+    header("Location: customer_login.php");
+    exit();
+}
+
 $conn = new mysqli("localhost", "root", "", "ecommerce");
 
 $customer_id = $conn->query("SELECT id FROM customers WHERE username='{$_SESSION['user']}'")->fetch_assoc()['id'];

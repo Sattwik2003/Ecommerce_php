@@ -25,8 +25,14 @@ $products = $conn->query("SELECT * FROM products");
 <div class="products">
 <?php while($row = $products->fetch_assoc()): ?>
     <div class="product-card">
-        <img src="images/<?php echo $row['image']; ?>" width="150px">
-        <h3><?php echo $row['name']; ?></h3>
+        <a href="product_page.php?id=<?php echo $row['id']; ?>">
+            <img src="images/<?php echo $row['image']; ?>" width="150px" alt="<?php echo htmlspecialchars($row['name']); ?>">
+        </a>
+        <h3>
+            <a href="product_page.php?id=<?php echo $row['id']; ?>">
+                <?php echo htmlspecialchars($row['name']); ?>
+            </a>
+        </h3>
         <p>Rs.<?php echo $row['price']; ?></p>
         <?php if (isset($_SESSION['user'])): ?>
             <form action="add_to_cart.php" method="POST">
