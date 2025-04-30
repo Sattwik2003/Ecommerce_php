@@ -9,7 +9,10 @@ $customer_id = $conn->query("SELECT id FROM customers WHERE username='{$_SESSION
 $customer = $conn->query("SELECT * FROM customers WHERE id=$customer_id")->fetch_assoc();
 
 // Fetch cart items
-$cart = $conn->query("SELECT c.*, p.id AS product_id, p.name, p.price FROM cart c JOIN products p ON c.product_id = p.id WHERE c.customer_id=$customer_id");
+$cart = $conn->query("SELECT c.*, p.id AS product_id, p.name, p.price, p.quantity AS stock_quantity 
+                      FROM cart c 
+                      JOIN products p ON c.product_id = p.id 
+                      WHERE c.customer_id=$customer_id");
 
 $total = 0;
 $items = [];
@@ -21,7 +24,8 @@ while ($item = $cart->fetch_assoc()) {
         'name' => $item['name'],
         'price' => $item['price'],
         'quantity' => $item['quantity'],
-        'total' => $item_total
+        'total' => $item_total,
+        'stock_quantity' => $item['stock_quantity']
     ];
 }
 
@@ -77,10 +81,13 @@ function generatePDFReceipt($customer, $items, $total) {
 
 // Generate the PDF receipt and clear the cart
 if (isset($_GET['checkout'])) {
+    // Clear the cart
+    $conn->query("DELETE FROM cart WHERE customer_id=$customer_id");
+
+    // Generate the receipt
     generatePDFReceipt($customer, $items, $total);
 
-    // Clear the cart after generating the receipt
-    $conn->query("DELETE FROM cart WHERE customer_id=$customer_id");
+    // Redirect to the homepage after clearing the cart
     header("Location: index.php");
     exit();
 }
@@ -132,35 +139,12 @@ if (isset($_GET['checkout'])) {
             background: #e26a98;
         }
     </style>
-    <script>
-        function clearCart() {
-            // Send an AJAX request to clear the cart
-            fetch('clear_cart.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ customer_id: <?= $customer_id ?> })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Cart cleared successfully!');
-                    location.reload(); // Reload the page to reflect the cleared cart
-                } else {
-                    alert('Failed to clear cart: ' + data.error);
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        }
-    </script>
 </head>
 <body>
     <div class="checkout-container">
         <h2>Checkout Complete!</h2>
         <p>Total Paid: ₹<?= number_format($total, 2) ?></p>
         <a href="?checkout=1">Download Receipt</a>
-        <button onclick="clearCart()">Clear Cart</button>
         <a href="index.php">Continue Shopping</a>
     </div>
 </body>

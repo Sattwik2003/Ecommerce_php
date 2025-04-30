@@ -3,9 +3,26 @@ session_start();
 $conn = new mysqli("localhost", "root", "", "ecommerce");
 
 $customer_id = $conn->query("SELECT id FROM customers WHERE username='{$_SESSION['user']}'")->fetch_assoc()['id'];
-$cart = $conn->query("SELECT c.*, p.name, p.price FROM cart c JOIN products p ON c.product_id = p.id WHERE c.customer_id=$customer_id");
+$cart = $conn->query("SELECT c.*, p.id AS product_id, p.name, p.price, p.quantity AS stock_quantity 
+                      FROM cart c 
+                      JOIN products p ON c.product_id = p.id 
+                      WHERE c.customer_id=$customer_id");
 
 $total = 0;
+
+// Update stock when "Proceed to Checkout" is pressed
+if (isset($_POST['checkout'])) {
+    while ($item = $cart->fetch_assoc()) {
+        $new_stock = $item['stock_quantity'] - $item['quantity'];
+        if ($new_stock < 0) {
+            $new_stock = 0; // Ensure stock doesn't go negative
+        }
+        $conn->query("UPDATE products SET quantity=$new_stock WHERE id={$item['product_id']}");
+    }
+    // Redirect to checkout.php after updating stock
+    header("Location: checkout.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -140,7 +157,9 @@ $total = 0;
     </table>
 
     <h3>Grand Total: Rs.<?= $total ?></h3>
-    <a href="checkout.php" class="checkout-btn">Proceed to Checkout</a>
+    <form method="POST">
+        <button type="submit" name="checkout" class="checkout-btn">Proceed to Checkout</button>
+    </form>
 <?php else: ?>
 <div class="empty-cart">
     <i class="fas fa-shopping-cart" style="font-size: 50px; color: var(--danger); margin-bottom: 10px;"></i>

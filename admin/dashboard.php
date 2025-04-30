@@ -679,12 +679,13 @@ $recent_customers = $conn->query("SELECT * FROM customers ORDER BY id DESC LIMIT
                 
                 <table class="recent-table">
                     <thead>
-                        <tr>
-                            <th>Product</th>
-                            <th>Category</th>
-                            <th>Price</th>
-                            <th>Added</th>
-                            <th>Actions</th>
+                        <tr >
+                            <th style="text-align: center;">Product</th>
+                            <th style="text-align: center;">Category</th>
+                            <th style="text-align: center;">Price</th>
+                            <th style="text-align: center;">Stock</th>
+                            <th style="text-align: center;">Added</th>
+                            <th style="text-align: center;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -703,6 +704,13 @@ $recent_customers = $conn->query("SELECT * FROM customers ORDER BY id DESC LIMIT
                                     </td>
                                     <td><?= htmlspecialchars($product['category_name'] ?: 'Uncategorized') ?></td>
                                     <td>₹<?= number_format($product['price'], 0) ?></td>
+                                    <td>
+                                        <?php if ($product['quantity'] > 0): ?>
+                                            <?= $product['quantity'] ?>
+                                        <?php else: ?>
+                                            <span style="color: var(--danger); font-weight: bold;">Out of Stock</span>
+                                        <?php endif; ?>
+                                    </td>
                                     <td><?= date("M d", strtotime($product['created_at'])) ?></td>
                                     <td>
                                         <a href="edit_product.php?id=<?= $product['id'] ?>" style="color: var(--accent); margin-right: 10px;">
@@ -717,7 +725,7 @@ $recent_customers = $conn->query("SELECT * FROM customers ORDER BY id DESC LIMIT
                             <?php endwhile; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="5" style="text-align: center; padding: 20px;">
+                                <td colspan="6" style="text-align: center; padding: 20px;">
                                     No products found. <a href="add_product.php" style="color: var(--primary);">Add your first product</a>.
                                 </td>
                             </tr>

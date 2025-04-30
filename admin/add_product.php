@@ -13,6 +13,7 @@ $categories = $conn->query("SELECT * FROM categories");
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $conn->real_escape_string($_POST['name']);
     $price = $conn->real_escape_string($_POST['price']);
+    $quantity = (int)$_POST['quantity'];
     $description = $conn->real_escape_string($_POST['description']);
     $category_id = (int)$_POST['category_id'];
 
@@ -27,8 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Insert into products table
-    $sql = "INSERT INTO products (name, description, price, image, category_id) 
-            VALUES ('$name', '$description', $price, '$image_name', $category_id)";
+    $sql = "INSERT INTO products (name, description, price, quantity, image, category_id) 
+            VALUES ('$name', '$description', $price, $quantity , '$image_name', $category_id)";
 
     if ($conn->query($sql) === TRUE) {
         $success_message = "Product added successfully!";
@@ -58,6 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <textarea name="description" placeholder="Product Description" rows="5" required></textarea><br>
 
         <input type="number" step="0.01" name="price" placeholder="Product Price" required><br>
+
+        <input type="number" step="0.01" name="quantity" placeholder="Quantity" required><br>
 
         <select name="category_id" required>
             <option value="">Select Category</option>
