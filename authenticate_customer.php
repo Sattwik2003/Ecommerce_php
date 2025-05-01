@@ -5,8 +5,22 @@ $conn = new mysqli("localhost", "root", "", "ecommerce");
 $username = $_POST['username'];
 $password = $_POST['password'];
 
+// Fetch customer details
 $result = $conn->query("SELECT * FROM customers WHERE username='$username' AND password='$password'");
 if ($result->num_rows > 0) {
+    $customer = $result->fetch_assoc();
+
+    // Check if the customer is blocked
+    if ($customer['is_blocked']) {
+        // Save error message
+        $_SESSION['login_error'] = "Your account has been blocked. Please contact support for assistance.";
+
+        // Redirect back to login page
+        header("Location: customer_login.php");
+        exit();
+    }
+
+    // If not blocked, log in the customer
     $_SESSION['user'] = $username;
 
     // Check if there's a redirect URL stored in session

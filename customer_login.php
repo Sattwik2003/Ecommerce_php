@@ -33,22 +33,6 @@ session_start();
             margin-bottom: 25px;
             color: #5a2d82;
         }
-
-        .form-footer {
-            text-align: center;
-            margin-top: 20px;
-            color: #666;
-        }
-
-        .form-footer a {
-            color: #f07cab;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .form-footer a:hover {
-            text-decoration: underline;
-        }
     </style>
 </head>
 

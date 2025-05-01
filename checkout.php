@@ -1,4 +1,5 @@
 <?php
+include 'check_customer_status.php';
 session_start();
 require('fpdf/fpdf.php'); // Include FPDF library
 

@@ -1,4 +1,5 @@
 <?php
+include 'check_customer_status.php';
 session_start();
 if (!isset($_SESSION['user'])) {
     header("Location: customer_login.php");

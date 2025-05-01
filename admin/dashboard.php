@@ -39,6 +39,17 @@ if ($revenue_query && $row = $revenue_query->fetch_assoc()) {
     $revenue = $row['total_value'] ?: 0;
 }
 
+// Get total stock and inventory revenue
+$total_stock = 0;
+$total_inventory_revenue = 0;
+$stock_query = $conn->query("SELECT quantity, price FROM products");
+if ($stock_query) {
+    while ($row = $stock_query->fetch_assoc()) {
+        $total_stock += $row['quantity'];
+        $total_inventory_revenue += $row['quantity'] * $row['price'];
+    }
+}
+
 // Get recent products
 $recent_products = $conn->query("SELECT products.*, categories.name AS category_name 
                                 FROM products 
@@ -218,7 +229,7 @@ $recent_customers = $conn->query("SELECT * FROM customers ORDER BY id DESC LIMIT
         /* Stats Cards */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 20px;
             margin-bottom: 30px;
         }
@@ -268,6 +279,8 @@ $recent_customers = $conn->query("SELECT * FROM customers ORDER BY id DESC LIMIT
         .stat-categories { background: linear-gradient(135deg, #6366f1, #4f46e5); }
         .stat-customers { background: linear-gradient(135deg, #10b981, #059669); }
         .stat-revenue { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .stat-stock { background: linear-gradient(135deg, #4caf50, #388e3c); }
+        .stat-inventory-revenue { background: linear-gradient(135deg, #ff9800, #f57c00); }
 
         .stat-value {
             font-size: 28px;
@@ -658,11 +671,19 @@ $recent_customers = $conn->query("SELECT * FROM customers ORDER BY id DESC LIMIT
             </div>
             
             <div class="stat-card">
-                <div class="stat-icon stat-revenue">
-                    <i class="fas fa-rupee-sign"></i>
+                <div class="stat-icon stat-stock">
+                    <i class="fas fa-warehouse"></i>
                 </div>
-                <div class="stat-value">₹<?= number_format($revenue, 0) ?></div>
-                <div class="stat-label">Total Inventory Value</div>
+                <div class="stat-value"><?= $total_stock ?></div>
+                <div class="stat-label">Total Stock</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon stat-inventory-revenue">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <div class="stat-value">₹<?= number_format($total_inventory_revenue, 0) ?></div>
+                <div class="stat-label">Total Inventory Revenue</div>
             </div>
         </div>
         

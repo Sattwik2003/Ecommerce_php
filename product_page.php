@@ -1,4 +1,5 @@
 <?php
+include 'check_customer_status.php';
 session_start();
 $conn = new mysqli("localhost", "root", "", "ecommerce");
 
