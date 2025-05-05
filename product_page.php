@@ -1,7 +1,7 @@
 <?php
 include 'check_customer_status.php';
 session_start();
-$conn = new mysqli("localhost", "root", "", "ecommerce");
+@include 'conn.php'; // Include the database connection file
 
 // Fetch product details
 $product_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;

@@ -5,7 +5,7 @@ if (!isset($_SESSION['admin'])) {
     exit();
 }
 
-$conn = new mysqli("localhost", "root", "", "ecommerce");
+@include 'conn.php'; // Include the database connection file
 
 if (!isset($_GET['id'])) {
     die("Product ID missing.");

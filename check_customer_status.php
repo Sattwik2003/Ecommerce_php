@@ -1,6 +1,6 @@
 <?php
 session_start();
-$conn = new mysqli("localhost", "root", "", "ecommerce");
+@include 'conn.php'; // Include the database connection file
 
 // Check if the customer is logged in
 if (isset($_SESSION['user'])) {

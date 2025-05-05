@@ -1,6 +1,6 @@
 <?php
 session_start();
-$conn = new mysqli("localhost", "root", "", "ecommerce");
+@include 'conn.php'; // Include the database connection file
 
 // Get the customer ID from the request
 $data = json_decode(file_get_contents('php://input'), true);

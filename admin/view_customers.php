@@ -5,7 +5,7 @@ if (!isset($_SESSION['admin'])) {
     exit();
 }
 
-$conn = new mysqli("localhost", "root", "", "ecommerce");
+@include 'conn.php'; // Include the database connection file
 
 // Toggle block/unblock action
 if (isset($_GET['toggle'])) {

@@ -5,7 +5,7 @@ if (!isset($_SESSION['admin'])) {
     exit();
 }
 
-$conn = new mysqli("localhost", "root", "", "ecommerce");
+@include 'conn.php'; // Include the database connection file
 
 // Add category
 if (isset($_POST['add'])) {

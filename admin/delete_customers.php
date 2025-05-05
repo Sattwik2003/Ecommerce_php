@@ -4,7 +4,7 @@ if (!isset($_SESSION['admin'])) {
     header("Location: admin_login.php");
     exit();
 }
-$conn = new mysqli("localhost", "root", "", "ecommerce");
+@include 'conn.php'; // Include the database connection file
 
 $id = $_GET['id'];
 $conn->query("DELETE FROM customers WHERE id=$id");

@@ -1,6 +1,6 @@
 <?php
 session_start();
-$conn = new mysqli("localhost", "root", "", "ecommerce");
+@include 'conn.php'; // Include the database connection file
 
 $item_id = $_GET['id'];
 $conn->query("DELETE FROM cart WHERE id=$item_id");

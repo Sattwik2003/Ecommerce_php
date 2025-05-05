@@ -5,7 +5,7 @@ if (!isset($_SESSION['admin'])) {
     exit();
 }
 
-$conn = new mysqli("localhost", "root", "", "ecommerce");
+@include 'conn.php'; // Include the database connection file
 
 // Fetch all products and their categories
 $sql = "SELECT products.*, categories.name AS category_name 

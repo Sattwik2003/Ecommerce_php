@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-$conn = new mysqli("localhost", "root", "", "ecommerce");
+@include 'conn.php'; // Include the database connection file
 
 // Get all products with category information
 $products = $conn->query("SELECT p.*, c.name as category_name 

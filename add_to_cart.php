@@ -6,7 +6,7 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 
-$conn = new mysqli("localhost", "root", "", "ecommerce");
+@include 'conn.php'; // Include the database connection file
 
 $customer_id = $conn->query("SELECT id FROM customers WHERE username='{$_SESSION['user']}'")->fetch_assoc()['id'];
 $product_id = $_POST['product_id'];

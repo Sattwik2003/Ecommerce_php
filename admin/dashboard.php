@@ -21,7 +21,7 @@ if (!isset($_SESSION['admin'])) {
 }
 
 // Connect to database to get stats
-$conn = new mysqli("localhost", "root", "", "ecommerce");
+@include 'conn.php'; // Include the database connection file
 
 // Get product count
 $product_count = $conn->query("SELECT COUNT(*) as count FROM products")->fetch_assoc()['count'];
